@@ -1,0 +1,17 @@
+.vscode/
+.idea/
+.env
+.venv
+*.sqlite3
+*.log
+__pycache__/
+local_settings.py
+db.sqlite3
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+media/
+message/
+distant/

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Добавление оценки{% endblock title %}
+
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/task.css' %}">
+{% endblock static %}
+
+{% block content %}
+<form action="{% url 'create-appraisal' object.task_id object.id %}" method="post" class="create-appraisal">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Поставить">
+</form>
+{% endblock content %}

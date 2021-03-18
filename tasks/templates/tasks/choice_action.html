@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Выберите действие{% endblock title %}
+
+{% block content %}
+<h1>Выберите действие:</h1>
+{% if perms.tasks.add_task %}
+    <a href="{% url 'create-task' %}">Создать задание</a>
+    <a href="{% url 'list-task' %}">Список ваших заданий</a>
+{% endif %}
+{% endblock content %}

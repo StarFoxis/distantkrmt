@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Главная{% endblock title %}
+
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/task.css' %}">
+{% endblock static %}
+
+{% block content %}
+<h1>Привет мир!</h1>
+{% if user.is_authenticated %}
+    {% if user.student %} 
+        {% if open_task or close_task %}
+            <p>У вас не выполнено {{ open_task|length }} заданий!</p>
+            <table class="like-table">
+                <tr>
+                    <th>Название</th>
+                    <th>Предмет</th>
+                    <th>Дата окончания</th>
+                    <th>Задание</th>
+                    <th>Ответ</th>
+                </tr>
+                    {% for task in open_task %}
+                        <tr>
+                            <td>{{ task.task.name }}</td>
+                            <td>{{ task.task.subject }}</td>
+                            <td>{{ task.task.date_end }}</td>
+                            <td><a href="{{ task.task.task.url }}" target="_blank">{{ task.task.name }}</a></td>
+                            <td><a href="{% url 'answer-task' task.pk %}">Ответить</a></td>
+                        </tr>
+                    {% endfor %}
+                    {% for task in close_task %}
+                        <tr>
+                            <td>{{ task.task.name }}</td>
+                            <td>{{ task.task.subject }}</td>
+                            <td>{{ task.task.date_end }}</td>
+                            <td>Откроется {{ task.task.date_opening }}</td>
+                        </tr>
+                    {% endfor %}
+            </table>
+        {% endif %}
+        {% if end_task %}
+            <p>У вас просроченно {{ end_task|length }} заданий!</p>
+            <table class="like-table">
+                <tr>
+                    <th>Название</th>
+                    <th>Предмет</th>
+                    <th>Дата окончания</th>
+                    <th>Ответ</th>
+                </tr>
+                    {% for task in end_task %}
+                        <tr>
+                            <td>{{ task.task.name }}</td>
+                            <td>{{ task.task.subject }}</td>
+                            <td>{{ task.task.date_end }}</td>
+                            <td>Отсутствует</td>
+                        </tr>
+                    {% endfor %}
+            </table>
+        {% endif %}
+    {% endif %}
+    {% if user.teacher %}
+        {% if unverified %}<p>У вас {{ unverified|length }} непроверенных ответов</p>
+            <table class="like-table">
+                <tr>
+                    <th>Название задания</th>
+                    <th>Предмет</th>
+                    <th>Студент</th>
+                    <th>Название ответа</th>
+                    <th>Дата ответа</th>
+                    <th>Ответ</th>
+                </tr>
+                    {% for answer in unverified %}
+                        <tr>
+                            <td>{{ answer.task.name }}</td>
+                            <td>{{ answer.task.subject }}</td>
+                            <td>{{ answer.student.user.first_name }} {{ answer.student.user.last_name }}</td>
+                            <td>{{ answer.answer.name }}</td>
+                            <td>{{ answer.answer.date_present }}</td>
+                            <td><a href="{% url 'detail-answer' answer.task_id answer.id %}">Проверить</a></td>
+                        </tr>
+                    {% endfor %}
+            </table>
+        {% else %}
+            <p>У вас нет не проверенных заданий</p>
+        {% endif %}
+    {% endif %}
+
+{% else %}
+    <p>Чтобы увидеть больше информации авторизуйтесь(зарегистрируйтесь)</p>
+    <a href="{% url 'login' %}">Войти</a>
+    <a href="{% url 'recognation' %}">Зарегистрироваться</a>
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Добавление задания{% endblock title %}
+
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/task.css' %}">
+{% endblock static %}
+
+{% block content %}
+<form enctype="multipart/form-data" action="{% url 'create-task' %}" method="post" class="create-task">
+    <h1>Задание</h1>
+    {% csrf_token %}
+    {{ form.media }}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Создать">
+</form>
+{% endblock content %}
+
+{% block js %}
+<script>
+    let group_num = document.getElementById('id_num_group');
+    let subject = document.getElementById('id_subject');
+    group_num.onchange = getGroupNums;
+
+    function getGroupNums() {
+        if (this.value) {
+            $.ajax({
+                url: '{% url "get-subject" %}',
+                type: 'POST',
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}', num_group: this.value},
+                dataType: 'json',
+                success: function(data) {
+                    setSelect(data)
+                }
+            })
+        } else {
+            setSelect();
+        }
+    }
+
+    function setSelect(data) {
+        subject.innerHTML = ''; 
+        if (data) {
+            subject.disabled = false;
+
+            for (let el of Object.keys(data)) {
+                let o = document.createElement('option');
+                o.value = el;
+                o.text = data[el];
+                subject.appendChild(o);
+                console.log(o)
+            }
+        } else {
+            subject.disabled = true;
+            let o = document.createElement('option');
+            o.text = '---------';
+            subject.appendChild(o);
+        }
+    }
+</script>
+{% endblock js %}

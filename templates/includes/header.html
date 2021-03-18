@@ -1,0 +1,43 @@
+<header>
+    <div class="logo">
+        {% if user.is_authenticated %}
+            <h1>{{ user.first_name }}, добро пожаловать!</h1>
+        {% else %}
+            <h1>Distant</h1>
+        {% endif %}
+    </div>
+    <menu>
+        <div class="pop-up">
+            <input type="checkbox" id="btn-nav">
+            <label for="btn-nav">
+                <div></div>
+                <div></div>
+                <div></div>
+            </label>
+        </div>
+        <nav>
+            <ul>
+                <li class="external"><a href="{% url 'home' %}">Главная</a></li>
+                <li class="external">
+                    <input type="checkbox" id="btn-internal">
+                    <label for="btn-internal">Пользователь</label>
+                    <ul class="internal">
+                        {% if user.is_authenticated %}
+                            <!-- <li><a href="">Редактировать</a></li> -->
+                            <li><a href="{% url 'logout' %}">Выйти</a></li>
+                            {% if user.is_staff %}
+                                <li><a href="{% url 'admin:index' %}">Админ.панель</a></li>
+                            {% endif %}
+                        {% else %}
+                            <li><a href="{% url 'login' %}">Войти</a></li>
+                            <li><a href="{% url 'recognation' %}">Зарегистрироваться</a></li>
+                        {% endif %}
+                    </ul>
+                </li>
+                <li class="external">
+                    <a href="{% if user.teacher %}{% url 'choice-action' %}{% else %}{% url 'student-list-task' %}{% endif %}">Задания</a>
+                </li>
+            </ul>
+        </nav>
+    </menu>
+</header>

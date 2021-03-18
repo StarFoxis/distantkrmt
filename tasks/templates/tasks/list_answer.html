@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Ответы{% endblock title %}
+
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/task.css' %}">
+{% endblock static %}
+
+{% block content %}
+    <h1>Ответы</h1>
+    {% if completed or unfulfilled %}
+        <table class="like-table">
+            <tr>
+                <th>Название</th>
+                <th>Студент</th>
+                <th>Оценка</th>
+                <th>Ответ</th>
+                <th>Состояние</th>
+            </tr>
+            {% for answer in completed %}
+                <tr>
+                    <td>{{ answer.answer.name }}</td>
+                    <td>{{ answer.student.user.first_name }} {{ answer.student.user.last_name }}</td>
+                    <td>
+                        {% if answer.appraisal %}
+                            {{ answer.appraisal.number }}({{ answer.appraisal.name }}), <a href="{% url 'create-appraisal' answer.task_id answer.id %}">Изменить</a>
+                        {% else %}
+                            Отсутствует, <a href="{% url 'create-appraisal' answer.task_id answer.id %}">Поставить</a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'detail-answer' answer.task_id answer.id %}">Смотреть</a>
+                    </td>
+                    {% if forloop.first %}
+                        <td rowspan="{{ completed|length }}">Выполнено</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            {% for answer in unfulfilled %}
+                <tr>
+                    <td>Отсутствует</td>
+                    <td>{{ answer.student.user.first_name }} {{ answer.student.user.last_name }}</td>
+                    <td>
+                        {% if answer.appraisal %}
+                            {{ answer.appraisal.number }}({{ answer.appraisal.name }}), <a href="{% url 'create-appraisal' answer.task_id answer.id %}">Изменить</a>
+                        {% else %}
+                            Отсутствует, <a href="{% url 'create-appraisal' answer.task_id answer.id %}">Поставить</a>
+                        {% endif %}
+                    </td>
+                    <td>Отсутствует</td>
+                    {% if forloop.first %}
+                        <td rowspan="{{ unfulfilled|length }}">Не выполнено</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>У данной группы нет студентов</p>
+    {% endif %}
+{% endblock content %}

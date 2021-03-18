@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Редактирование ответа{% endblock title %}
+
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/task.css' %}">
+{% endblock static %}
+
+{% block content %}
+<form enctype="multipart/form-data" action="" method="post" class="edit-answer">
+    <h1>Ответ</h1>
+    {% csrf_token %}
+    {{ form.media }}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Редактировать">
+</form>
+{% endblock content %}

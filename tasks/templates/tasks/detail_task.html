@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Ваши задания{% endblock title %}
+
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/task.css' %}">
+{% endblock static %}
+
+{% block content %}
+<table class="like-table">
+    <tr>
+        <th>Название</th>
+        <th>Предмет</th>
+        <th>Номер группы</th>
+        <th>Дата создания</th>
+        <th>Дата окончания</th>
+        <th>Дата открытия</th>
+        <th>Состояние</th>
+        <th>Результаты</th>
+    </tr>
+        <tr>
+            <td>{{ detail.name }}</td>
+            <td>{{ detail.subject }}</td>
+            <td>{{ detail.num_group.name }}</td>
+            <td>{{ detail.date_start }}</td>
+            <td>{{ detail.date_end }}</td>
+            <td>{% if detail.date_opening %}{{ detail.date_opening }}{% else %}Отсутствует{% endif %}</td>
+            <td>{% if detail.active %}Открыто{% else %}Закрыто{% endif %}</td>
+            <td><a href="{% url 'list-answer' detail.pk %}">Смотреть</a></td>
+        </tr>
+</table>
+<div class="task">
+    <span>
+        <h1>Задание</h1>
+        <a href="{% url 'edit-task' detail.pk %}">Редактировать</a>
+        <a href="{% url 'delete-task' detail.pk %}" id="delete">Удалить</a>
+    </span>
+    <p>
+        <a href="{{ detail.task.url }}" target="_blank">Задание</a>
+    </p>
+</div>
+{% endblock content %}

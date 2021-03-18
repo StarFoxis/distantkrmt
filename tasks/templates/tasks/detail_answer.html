@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Ваши задания{% endblock title %}
+
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/task.css' %}">
+{% endblock static %}
+
+{% block content %}
+<table class="like-table">
+    <tr>
+        <th>Название</th>
+        <th>Студент</th>
+        <th>Группа</th>
+        <th>Предмет</th>
+        <th>Оценка</th>
+    </tr>
+        <tr>
+            <td>{{ answer.answer.name }}</td>
+            <td>{{ answer.student.user.first_name }} {{ answer.student.user.last_name }}</td>
+            <td>{{ answer.student.num_group }}</td>
+            <td>{{ answer.task.subject }}</td>
+            <td>
+                {% if answer.appraisal %}
+                    {{ answer.appraisal }}
+                {% else %}
+                    Отсутствует
+                {% endif %}
+            </td>
+        </tr>
+</table>
+<div class="answer">
+    <h1>Ответ</h1> 
+    <div class="answer-info">
+        {% if answer.answer %}
+            <p><a href="{{ answer.answer.answer.url }}" target="_blank">Ответ</a></p>
+        {% else %}
+            <p>Ответа нет</p>
+        {% endif %}
+    </div>
+    <a href="{% url 'create-appraisal' answer.task_id answer.id %}">Поставить оценку</a>
+</div>
+{% endblock content %}

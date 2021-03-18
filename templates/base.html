@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <title>
+        {% block title %}{% endblock title %}
+    </title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block static %}{% endblock static %}
+</head>
+<body>
+    {% include 'includes/header.html' %}
+    
+    <main>
+        {% block content %}{% endblock content %}
+    </main>
+
+    {% include 'includes/footer.html' %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(() => {
+            $('.pop-up label').click((event) => {
+                $('nav').slideToggle();
+                $('nav #btn-internal').each((i, el) => {
+                    let internal = $(el).siblings('.internal');
+                    if (internal.css('display') != 'none') {
+                        internal.css('display', 'none');
+                    }
+                }) 
+            }) 
+            
+            $('nav #btn-internal').click((el) => {
+                $(el.target).siblings('.internal').slideToggle();
+            }) 
+            
+        })
+    </script>
+    {% block js %}{% endblock js %}
+</body>
+</html>

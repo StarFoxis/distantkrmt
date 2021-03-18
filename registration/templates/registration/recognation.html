@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Кто вы?{% endblock title %}
+
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock static %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+    <div class="go_out">
+        <p>Прежде чем зарегистрироваться, выйдите из текущего аккаунта</p>
+        <a href="{% url 'logout' %}?next={{request.path}}">Выйти</a>
+    </div>
+{% else %}
+    <div class="recognation">
+        <h1>Кто вы:</h1>
+        <a href="{% url 'signup-student' %}" autofocus>Студент</a>
+        <a href="{% url 'signup-teacher' %}">Преподаватель</a>    
+    </div>
+{% endif %}
+
+{% endblock content %}

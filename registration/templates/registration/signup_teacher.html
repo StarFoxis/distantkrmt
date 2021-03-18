@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Регистрация преподавателя{% endblock title %}
+
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock static %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <div class="go_out">
+        <p>Прежде чем зарегистрироваться, выйдите из текущего аккаунта</p>
+        <a href="{% url 'logout' %}?next={{request.path}}">Выйти</a>
+    </div>
+{% else %}
+    <form action="{% url 'signup-teacher' %}" method="post" id="signup" class="form-reg">
+        <h1>Регистрация преподавателя</h1>
+        {% csrf_token %}
+        <table>
+            {{ user_form.as_table }}
+            {{ teacher_form.as_table }}
+        </table>
+        <input type="submit" value="Зарегистрировать">
+    </form>
+{% endif %}
+{% endblock content %}

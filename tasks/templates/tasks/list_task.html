@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Ваши задания{% endblock title %}
+
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/task.css' %}">
+{% endblock static %}
+
+{% block content %}
+{% if object_list %}
+    <table class="like-table">
+        <tr>
+            <th>Задание</th>
+            <th>Номер группы</th>
+            <th>Предмет</th>
+            <th>Выполнило человек</th>
+        </tr>
+        {% for el in object_list %}
+            <tr>
+                <td><a href="{% url 'detail-task' el.pk %}">{{ el.name }}</a></td>
+                <td>{{ el.num_group.name }}</td>
+                <td>{{ el.subject }}</td>
+                <td>{{ el.answer_count }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>Вы ещё не создали задания</p>
+    <a href="{% url 'create-task' %}">Создать</a>
+{% endif %}
+{% endblock content %}

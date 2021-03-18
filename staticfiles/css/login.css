@@ -1,0 +1,88 @@
+/* main {
+    padding: 20px;
+}
+
+main h1 {
+    font-size: 35px;
+    font-weight: bold;
+}
+
+main h1::first-letter {
+    text-transform: uppercase;
+}
+
+main a {
+    text-decoration: none;
+    font-size: 20px;
+    transition: all .2s;
+}
+
+
+.go_out p {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.go_out a {
+    color: rgb(64, 64, 65);
+}
+
+.go_out a:hover {
+    color: rgb(119, 119, 121);
+}
+
+.recognation a {
+    color: #7d1515;
+}
+
+.recognation a:focus {
+    color: #a86363;
+}
+
+.recognation a:hover {
+    color: #b11e1e;
+}
+
+table th {
+    text-align: end;
+    vertical-align: top;
+}
+
+.form-reg {
+    display: inline-block;
+    border: 1px solid;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.form-reg h1 {
+    text-align: center;
+}
+
+.form-reg input[type=submit] {
+    float: right;
+    font-size: 19px;
+    padding: 3px 6px;
+}
+
+.form-reg table input {
+    border-color: #fff;
+    font-size: 15px;
+}
+
+.form-reg input[required] {
+    border-bottom-color: #727272;
+}
+
+
+.form-reg span {
+    font-size: 17px;
+}
+
+#signup #id_num_groups {
+    list-style: none;
+}
+
+.errorlist {
+    list-style: circle inside;
+} */
