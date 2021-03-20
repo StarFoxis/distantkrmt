@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/message.css' %}">
+{% endblock static %}
+
+{% block title %}Сообщения{% endblock title %}
+
+{% block content %}
+<h1>Сообщения</h1>
+{% if teachers %}
+    <div class="teahers">
+        <h1>Преподаватели</h1>
+        {% for teacher in teachers %}
+            <div class="teacher">
+                <p><a href="{% url 'create-message' teacher.user.id %}">{{ teacher.user.first_name }} {{ teacher.user.last_name }}</a></p>
+                {% if teacher.story != 0 %}
+                    <p>{{ teacher.story }} непрочитанных сообщений</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% if groups %}
+    <div class="groups">
+        <h1>Студенты</h1>
+        {% for name, students in groups.items %}
+            <div class="group">
+                <div class="name">
+                    <input type="checkbox" name="" id="{{ name }}">
+                    <label for="{{ name }}">{{ name }}</label>
+                </div>
+                <div class="students">
+                    {% for student in students %}
+                        <div class="student">
+                            <p><a href="{% url 'create-message' student.user.id %}">{{ student.user.first_name }} {{ student.user.last_name }}</a></p>
+                            {% if student.story != 0 %}
+                                <p>{{ student.story }} непрочитанных сообщений</p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% if allies %}
+    <h1>Одногруппники</h1>
+    <div class="allies">
+        {% for student in allies %}
+            <div class="student">
+                <p><a href="{% url 'create-message' student.user.id %}">{{ student.user.first_name }} {{ student.user.last_name }}</a></p>
+                {% if student.story != 0 %}
+                    <p>{{ student.story }} непрочитанных сообщений</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock content %}
+
+{% block js %}
+<script>
+    $('.name input').each((index, el) => {
+        $(el).click((e) => {
+            $(el.parentElement).siblings('.students').toggle()
+        })
+    })
+</script>
+{% endblock js %}

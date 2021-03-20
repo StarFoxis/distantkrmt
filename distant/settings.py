@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'main',
     'registration',
     'tasks',
-    # 'message',
+    'message',
 ]
 
 MIDDLEWARE = [

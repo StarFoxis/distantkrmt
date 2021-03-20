@@ -23,7 +23,7 @@
                     <label for="btn-internal">Пользователь</label>
                     <ul class="internal">
                         {% if user.is_authenticated %}
-                            <!-- <li><a href="">Редактировать</a></li> -->
+                            <li><a href="{% url 'message' %}">Сообщения</a></li>
                             <li><a href="{% url 'logout' %}">Выйти</a></li>
                             {% if user.is_staff %}
                                 <li><a href="{% url 'admin:index' %}">Админ.панель</a></li>

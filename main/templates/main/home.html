@@ -13,7 +13,7 @@
 {% if user.is_authenticated %}
     {% if user.student %} 
         {% if open_task or close_task %}
-            <p>У вас не выполнено {{ open_task|length }} заданий!</p>
+            <p>У вас невыполнено {{ open_task|length }} заданий!</p>
             <table class="like-table">
                 <tr>
                     <th>Название</th>
@@ -84,10 +84,12 @@
                     {% endfor %}
             </table>
         {% else %}
-            <p>У вас нет не проверенных заданий</p>
+            <p>У вас нет непроверенных заданий</p>
         {% endif %}
     {% endif %}
-
+    {% if unread %}
+        <p>У вас есть непрочитанные сообщения</p>
+    {% endif %}
 {% else %}
     <p>Чтобы увидеть больше информации авторизуйтесь(зарегистрируйтесь)</p>
     <a href="{% url 'login' %}">Войти</a>

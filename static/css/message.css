@@ -1,0 +1,29 @@
+.name input {
+    display: none;
+}
+
+.name label {
+    font-size: 20px;
+    color: rgb(69, 69, 199);
+    text-decoration: underline;
+}
+
+.name label:hover {
+    color: rgb(82, 82, 163);
+}
+
+.students {
+    display: none;
+}
+
+/* .message {
+    border: 1px solid;
+} */
+
+.resipient {
+    color: red;
+}
+
+.sender {
+    color: green;
+}

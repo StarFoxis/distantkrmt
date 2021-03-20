@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/message.css' %}">
+{% endblock %}
+
+{% block title %}Беседа{% endblock title %}
+
+{% block content %}
+<h1>Вы беседуете с {{ resipient.first_name }}</h1>
+
+<div class="story">
+{% for message in story %}
+    <div class="message {% if message.sender != user %}resipient{% else %}sender{% endif %}">
+        <p>{{ message.time }}</p>
+        <pre>{{ message.message }}</pre>
+    </div>
+{% endfor %}
+</div>
+<div class="create-message">
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Отправить">
+    </form>
+</div>
+{% endblock content %}
