@@ -11,7 +11,7 @@ from .views import (CreateTaskView,
                    EditAnswerTaskView, 
                    DetailAnswerView, 
                    ListAnswerView, 
-                   CreateAppraisalView, 
+                   CreateAppraisalView,
 
                    ajax_get_subject)
 

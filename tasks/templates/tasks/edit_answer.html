@@ -8,13 +8,14 @@
 {% endblock static %}
 
 {% block content %}
-<form enctype="multipart/form-data" action="" method="post" class="edit-answer">
-    <h1>Ответ</h1>
+<form enctype="multipart/form-data" action="" method="post">
     {% csrf_token %}
     {{ form.media }}
-    <table>
-        {{ form.as_table }}
-    </table>
-    <input type="submit" value="Редактировать">
+    <div class="form">
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value="Редактировать">
+    </div>
 </form>
 {% endblock content %}

@@ -1,0 +1,28 @@
+<div class="overlay_popup"></div>
+<div class="popup" id="popup1">
+    <div class="object">
+        {% block form %}{% endblock form %}
+    </div>
+</div>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+<script>
+    function wait_for_jQuery(){
+        if (typeof jQuery == 'undefined'){
+            setTimeout(wait_for_jQuery, 50);
+        }else{
+            $(document).ready(() => {
+                $('.show_popup').click(function() { // Вызываем функцию по нажатию на кнопку
+                    var popup_id = $('#popup1'); // Связываем rel и popup_id
+                    $(popup_id).show(); // Открываем окно
+                    $('.overlay_popup').show(); // Открываем блок заднего фона
+                })
+                $('.overlay_popup').click(function() { // Обрабатываем клик по заднему фону
+                    $('.overlay_popup, .popup').hide(); // Скрываем затемнённый задний фон и основное всплывающее окно
+                    $('.object').empty()
+                })
+            }); 
+        }
+    }
+    wait_for_jQuery();
+</script>

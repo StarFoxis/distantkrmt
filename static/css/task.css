@@ -1,49 +1,27 @@
-.like-table {
-    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-    font-size: 14px;
-    border-radius: 10px;
-    border-spacing: 0;
-    text-align: center;
-}
-.like-table th {
-    background: #7f8b88;
-    color: white;
-    text-shadow: 0 1px 1px #2D2020;
-    padding: 10px 20px;
-}
-.like-table th, .like-table td {
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    border-color: white;
-}
-.like-table th:first-child, .like-table td:first-child {
-    text-align: left;
-}
-.like-table th:first-child {
-    border-top-left-radius: 10px;
-}
-.like-table th:last-child {
-    border-top-right-radius: 10px;
-    border-right: none;
-}
-.like-table td {
-    padding: 10px 20px;
-    background: #a09360;
-}
-.like-table tr:last-child td:first-child {
-    border-radius: 0 0 0 10px;
-}
-.like-table tr:last-child td:last-child {
-    border-radius: 0 0 10px 0;
-}
-.like-table tr td:last-child {
-    border-right: none;
+.table-box {
+    max-width: 1050px;
 }
 
-.task {
-    margin: 10px;
+.print-table {
+    width: 100%;
+    border: 1px solid rgb(126, 126, 126);
+    border-collapse: collapse;
 }
 
-.answer {
-    margin: 10px;
+.print-table thead {
+    border: 1px solid rgb(126, 126, 126);
+}
+
+.print-table th, .print-table td {
+    border-left: 1px solid rgb(126, 126, 126);
+    white-space: nowrap;
+    padding: 5px;
+}
+
+.print-table td {
+    border-bottom: 1px solid rgb(126, 126, 126);
+}
+
+.table-box {
+    overflow: auto
 }

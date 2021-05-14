@@ -9,22 +9,28 @@
 
 {% block content %}
 {% if object_list %}
-    <table class="like-table">
-        <tr>
-            <th>Задание</th>
-            <th>Номер группы</th>
-            <th>Предмет</th>
-            <th>Выполнило человек</th>
-        </tr>
-        {% for el in object_list %}
-            <tr>
-                <td><a href="{% url 'detail-task' el.pk %}">{{ el.name }}</a></td>
-                <td>{{ el.num_group.name }}</td>
-                <td>{{ el.subject }}</td>
-                <td>{{ el.answer_count }}</td>
-            </tr>
-        {% endfor %}
-    </table>
+    <div class="table-box">
+        <table class="print-table">
+            <thead>
+                <tr>
+                    <th>Задание</th>
+                    <th>Номер группы</th>
+                    <th>Предмет</th>
+                    <th>Выполнило человек</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for el in object_list %}
+                    <tr>
+                        <td><a href="{% url 'detail-task' el.pk %}">{{ el.name }}</a></td>
+                        <td>{{ el.num_group.name }}</td>
+                        <td>{{ el.subject }}</td>
+                        <td>{{ el.answer_count }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% else %}
     <p>Вы ещё не создали задания</p>
     <a href="{% url 'create-task' %}">Создать</a>

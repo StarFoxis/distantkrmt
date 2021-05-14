@@ -10,82 +10,110 @@
 {% block content %}
 <h1>Ваши задания</h1>
 {% if open or end or close %}
-    <table class="like-table">
-        <tr>
-            <th>Название</th>
-            <th>Предмет</th>
-            <th>Дата создания</th>
-            <th>Дата окончания</th>
-            <th>Дата открытия</th>
-            <th>Задание</th>
-            <th>Ответ</th>
-            <th>Оценка</th>
-            <th>Состояние</th>
-        </tr>
-        {% for task in open %}
-            <tr>
-                <td>{{ task.task.name }}</td>
-                <td>{{ task.task.subject }}</td>
-                <td>{{ task.task.date_start }}</td>
-                <td>{{ task.task.date_end }}</td>
-                <td>{% if task.task.date_opening %}{{ task.task.date_opening }}{% else %}Открылся при создании{% endif %}</td>
-                <td><a href="{{ task.task.task.url }}" target="_blank">Задание</a></td>
-                <td>
-                    {{ task.answer.name }} 
-                    {% if not task.task.closeTask and task.answer %}
-                        <a href="{% url 'edit-answer' task.id task.answer.pk %}">Редактировать</a>
-                    {% else %}
-                        <a href="{% url 'answer-task' task.pk %}">Ответить</a>
-                    {% endif %}
-                </td>
-                <td>
-                    {% if task.appraisal %}
-                        {{ task.appraisal.number }}({{ task.appraisal.name }})
-                    {% else %}
-                        Отсутствует
-                    {% endif %}
-                </td>
-                <td>{% if task.answer %}Выполнено{% else %}Не выполнено{% endif %}</td>
-            </tr>
-        {% endfor %}   
-        {% for task in close %}
-            <tr>
-                <td>{{ task.task.name }}</td>
-                <td>{{ task.task.subject }}</td>
-                <td>{{ task.task.date_start }}</td>
-                <td>Закрывается {{ task.task.date_end }}</td>
-                <td>{% if task.task.date_opening %}{{ task.task.date_opening }}{% else %}Открылся при создании{% endif %}</td>
-                <td>Недоступно</td>
-                <td>
-                    {% if task.appraisal %}
-                        {{ task.appraisal.number }}({{ task.appraisal.name }})
-                    {% else %}
-                        Отсутствует
-                    {% endif %}
-                </td>
-                <td>Не выполнено</td>
-            </tr>
-        {% endfor %}
-        {% for task in end %}
-            <tr>
-                <td>{{ task.task.name }}</td>
-                <td>{{ task.task.subject }}</td>
-                <td>{{ task.task.date_start }}</td>
-                <td>Закрылся {{ task.task.date_end }}</td>
-                <td>{% if task.task.date_opening %}{{ task.task.date_opening }}{% else %}Открылся при создании{% endif %}</td>
-                <td>{% if task.answer %}{{ task.answer}}{% else %}Отсутствует{% endif %}</td>
-                <td>
-                    {% if task.appraisal %}
-                        {{ task.appraisal.number }}({{ task.appraisal.name }})
-                    {% else %}
-                        Отсутствует
-                    {% endif %}
-                </td>
-                <td>{% if task.answer %}Выполнено{% else %}Не выполнено{% endif %}</td>
-            </tr>
-        {% endfor %}
-    </table>
+    <div class="table-box">
+        <table class="print-table">
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Предмет</th>
+                    <th>Дата создания</th>
+                    <th>Дата окончания</th>
+                    <th>Дата открытия</th>
+                    <th>Задание</th>
+                    <th>Ответ</th>
+                    <th>Оценка</th>
+                    <th>Состояние</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in open %}
+                    <tr>
+                        <td>{{ task.task.name }}</td>
+                        <td>{{ task.task.subject }}</td>
+                        <td>{{ task.task.date_start }}</td>
+                        <td>{{ task.task.date_end }}</td>
+                        <td>{% if task.task.date_opening %}{{ task.task.date_opening }}{% else %}Открылся при создании{% endif %}</td>
+                        <td><a href="{{ task.task.task.url }}" target="_blank">Задание</a></td>
+                        <td>
+                            {{ task.answer.name }} 
+                            {% if not task.task.closeTask and task.answer %}
+                                <a href="{% url 'edit-answer' task.id task.answer.pk %}" class="add-answer show_popup">Редактировать</a>
+                            {% else %}
+                                <a href="{% url 'answer-task' task.pk %}" class="add-answer show_popup">Ответить</a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if task.appraisal %}
+                                {{ task.appraisal.number }}({{ task.appraisal.name }})
+                            {% else %}
+                                Отсутствует
+                            {% endif %}
+                        </td>
+                        <td>{% if task.answer %}Выполнено{% else %}Не выполнено{% endif %}</td>
+                    </tr>
+                {% endfor %}   
+                {% for task in close %}
+                    <tr>
+                        <td>{{ task.task.name }}</td>
+                        <td>{{ task.task.subject }}</td>
+                        <td>{{ task.task.date_start }}</td>
+                        <td>Закрывается {{ task.task.date_end }}</td>
+                        <td>{% if task.task.date_opening %}{{ task.task.date_opening }}{% else %}Открылся при создании{% endif %}</td>
+                        <td>Недоступно</td>
+                        <td>Отсутствует</td>
+                        <td>
+                            {% if task.appraisal %}
+                                {{ task.appraisal.number }}({{ task.appraisal.name }})
+                            {% else %}
+                                Отсутствует
+                            {% endif %}
+                        </td>
+                        <td>Не выполнено</td>
+                    </tr>
+                {% endfor %}
+                {% for task in end %}
+                    <tr>
+                        <td>{{ task.task.name }}</td>
+                        <td>{{ task.task.subject }}</td>
+                        <td>{{ task.task.date_start }}</td>
+                        <td>Закрылся {{ task.task.date_end }}</td>
+                        <td>{% if task.task.date_opening %}{{ task.task.date_opening }}{% else %}Открылся при создании{% endif %}</td>
+                        <td><a href="{{ task.task.task.url }}" target="_blank">Задание</a></td>
+                        <td>{% if task.answer %}{{ task.answer}}{% else %}Отсутствует{% endif %}</td>
+                        <td>
+                            {% if task.appraisal %}
+                                {{ task.appraisal.number }}({{ task.appraisal.name }})
+                            {% else %}
+                                Отсутствует
+                            {% endif %}
+                        </td>
+                        <td>{% if task.answer %}Выполнено{% else %}Не выполнено{% endif %}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% else %}
     <p>У вас нет ни одного задания</p>
 {% endif %}
+
+{% include 'includes/popup.html' %}
+
 {% endblock content %}
+
+{% block js %}
+<script>
+    $('.add-answer').click(function(e) {
+        e.preventDefault()
+        let form = $('.object')
+        $.ajax({
+            url: $(this).attr('href'),
+            type: 'GET',
+            success: function(data) {
+                form.append($(data).find('form'))
+            },
+        })        
+    })
+
+</script>
+{% endblock js %}

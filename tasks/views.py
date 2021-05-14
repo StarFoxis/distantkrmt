@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
-from django.http import JsonResponse, HttpResponseNotFound
+from django.http import JsonResponse, HttpResponseNotFound, response
 from django.views.generic import TemplateView, CreateView, ListView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
@@ -137,6 +137,11 @@ class CreateAnswerTaskView(UserPassesTestMixin, CreateView):
             task_student.save()
         return response
 
+    def get_context_data(self):
+        data = super().get_context_data()
+        data['id'] = self.kwargs.get('pk')
+        return data
+
     def test_func(self):
         return hasattr(self.request.user, 'student') and TaskStudent.objects.get(id=self.kwargs.get('pk')).task.openTask()
 
@@ -164,5 +169,3 @@ class CreateAppraisalView(PermissionRequiredMixin, UpdateView):
     fields = ('appraisal',)
     # success_url = reverse_lazy('detail-answer')
     permission_required = 'tasks.change_task'
-
-

@@ -8,7 +8,7 @@
 {% endblock static %}
 
 {% block content %}
-<form enctype="multipart/form-data" action="" method="post" class="edit-task">
+<form enctype="multipart/form-data" action="" method="post" class="form-fill">
     <h1>Задание</h1>
     {% csrf_token %}
     {{ form.media }}
@@ -18,3 +18,27 @@
     <input type="submit" value="Изменить">
 </form>
 {% endblock content %}
+
+{% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+
+<script>
+    $(function () {
+        $("#id_date_end").datepicker();
+        $("#id_date_opening").datepicker();
+    });
+
+    let cb = document.getElementById('id_active');
+    cb.onchange = checkDateOpen;
+    checkDateOpen();
+
+    function checkDateOpen() {
+        if (cb.checked) {
+            document.getElementById('id_date_opening').value = '';
+            document.getElementById('id_date_opening').disabled = true;
+        } else {
+            document.getElementById('id_date_opening').disabled = false;
+        }
+    }
+</script>
+{% endblock js %}

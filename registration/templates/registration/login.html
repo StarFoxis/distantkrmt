@@ -14,7 +14,7 @@
         <a href="{% url 'logout' %}?next={{request.path}}">Выйти</a>
     </div>
 {% else %}
-    <form action="{% url 'login' %}" method="post" id="signin" class="form-reg">
+    <form action="{% url 'login' %}" method="post" id="signin" class="form-fill">
         <h1>Авторизация</h1>
         {% csrf_token %}
         <table>

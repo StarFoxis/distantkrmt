@@ -8,36 +8,62 @@
 {% endblock static %}
 
 {% block content %}
-<table class="like-table">
-    <tr>
-        <th>Название</th>
-        <th>Предмет</th>
-        <th>Номер группы</th>
-        <th>Дата создания</th>
-        <th>Дата окончания</th>
-        <th>Дата открытия</th>
-        <th>Состояние</th>
-        <th>Результаты</th>
-    </tr>
-        <tr>
-            <td>{{ detail.name }}</td>
-            <td>{{ detail.subject }}</td>
-            <td>{{ detail.num_group.name }}</td>
-            <td>{{ detail.date_start }}</td>
-            <td>{{ detail.date_end }}</td>
-            <td>{% if detail.date_opening %}{{ detail.date_opening }}{% else %}Отсутствует{% endif %}</td>
-            <td>{% if detail.active %}Открыто{% else %}Закрыто{% endif %}</td>
-            <td><a href="{% url 'list-answer' detail.pk %}">Смотреть</a></td>
-        </tr>
-</table>
+
+<div class="table-box">
+    <h1>Задание</h1>
+    <table class="print-table">
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Предмет</th>
+                <th>Номер группы</th>
+                <th>Дата создания</th>
+                <th>Дата окончания</th>
+                <th>Дата открытия</th>
+                <th>Состояние</th>
+                <th>Результаты</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ detail.name }}</td>
+                <td>{{ detail.subject }}</td>
+                <td>{{ detail.num_group.name }}</td>
+                <td>{{ detail.date_start }}</td>
+                <td>{{ detail.date_end }}</td>
+                <td>{% if detail.date_opening %}{{ detail.date_opening }}{% else %}Отсутствует{% endif %}</td>
+                <td>{% if detail.active %}Открыто{% else %}Закрыто{% endif %}</td>
+                <td><a href="{% url 'list-answer' detail.pk %}">Смотреть</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 <div class="task">
     <span>
-        <h1>Задание</h1>
         <a href="{% url 'edit-task' detail.pk %}">Редактировать</a>
         <a href="{% url 'delete-task' detail.pk %}" id="delete">Удалить</a>
     </span>
     <p>
-        <a href="{{ detail.task.url }}" target="_blank">Задание</a>
+        <a href="{{ detail.task.url }}" target="_blank">Скачать задание</a>
     </p>
 </div>
 {% endblock content %}
+
+{% block js %}
+<script>
+    $('#delete').click(function(e) {
+        e.preventDefault()
+        let flag = confirm('Вы действительно хотите удалить это задание?')
+        if (flag) {
+            $.ajax({
+                url: $(this).attr('href'),
+                type: 'POST',
+                data: {csrfmiddlewaretoken: "{{ csrf_token }}"},
+                success: function(data) {
+                    window.location.replace('{% url "list-task" %}')
+                }
+            })
+        }
+    })
+</script>
+{% endblock js %}

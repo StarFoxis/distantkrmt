@@ -14,7 +14,7 @@
         <a href="{% url 'logout' %}?next={{request.path}}">Выйти</a>
     </div>
 {% else %}
-    <form action="{% url 'signup-teacher' %}" method="post" id="signup" class="form-reg">
+    <form action="{% url 'signup-teacher' %}" method="post" id="signup" class="form-fill">
         <h1>Регистрация преподавателя</h1>
         {% csrf_token %}
         <table>

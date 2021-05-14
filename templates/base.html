@@ -3,23 +3,27 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         {% block title %}{% endblock title %}
     </title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
     {% block static %}{% endblock static %}
 </head>
 <body>
     {% include 'includes/header.html' %}
     
     <main>
-        {% block content %}{% endblock content %}
+        <div class="container">
+            {% block content %}{% endblock content %}
+        </div>
     </main>
 
     {% include 'includes/footer.html' %}
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
     <script type="text/javascript">
         $(document).ready(() => {
             $('.pop-up label').click((event) => {
@@ -34,8 +38,7 @@
             
             $('nav #btn-internal').click((el) => {
                 $(el.target).siblings('.internal').slideToggle();
-            }) 
-            
+            })            
         })
     </script>
     {% block js %}{% endblock js %}

@@ -8,7 +8,7 @@
 {% endblock static %}
 
 {% block content %}
-<form enctype="multipart/form-data" action="{% url 'create-task' %}" method="post" class="create-task">
+<form enctype="multipart/form-data" action="{% url 'create-task' %}" method="post" class="form-fill">
     <h1>Задание</h1>
     {% csrf_token %}
     {{ form.media }}
@@ -20,7 +20,18 @@
 {% endblock content %}
 
 {% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+
 <script>
+    $(function () {
+        $("#id_date_end").datepicker();
+        $("#id_date_opening").datepicker();
+    });
+
+    let cb = document.getElementById('id_active');
+    cb.onchange = checkDateOpen;
+    checkDateOpen();
+
     let group_num = document.getElementById('id_num_group');
     let subject = document.getElementById('id_subject');
     group_num.onchange = getGroupNums;
@@ -51,13 +62,21 @@
                 o.value = el;
                 o.text = data[el];
                 subject.appendChild(o);
-                console.log(o)
             }
         } else {
             subject.disabled = true;
             let o = document.createElement('option');
             o.text = '---------';
             subject.appendChild(o);
+        }
+    }
+
+    function checkDateOpen() {
+        if (cb.checked) {
+            document.getElementById('id_date_opening').value = '';
+            document.getElementById('id_date_opening').disabled = true;
+        } else {
+            document.getElementById('id_date_opening').disabled = false;
         }
     }
 </script>
