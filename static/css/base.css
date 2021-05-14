@@ -170,6 +170,12 @@ menu nav #btn-internal:checked + label::after {
 	vertical-align: top;
 }
 
+@media only screen and (max-width: 800) {
+	.logo h1 {
+		font-size: 22px;
+	}
+}
+
 @media only screen and (max-width: 1000px){
 	header .pop-up label {
 		position: relative;
