@@ -170,8 +170,8 @@ menu nav #btn-internal:checked + label::after {
 	vertical-align: top;
 }
 
-@media only screen and (max-width: 800) {
-	.logo h1 {
+@media only screen and (max-width: 800px) {
+	header h1 {
 		font-size: 22px;
 	}
 }
