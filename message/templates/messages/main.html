@@ -11,15 +11,14 @@
 <h1>Сообщения</h1>
 <div class="people">
     {% if teachers %}
-        <div class="teachers">
-            <h3>Преподаватели</h3>
-            {% for teacher in teachers %}
-                <div class="teacher">
-                    <p><a href="{% url 'create-message' teacher.user.id %}">{{ teacher.user.first_name }} {{ teacher.user.last_name }}</a>  {% if teacher.story != 0 %}{{ teacher.story }} непрочитанных сообщений{% endif %}</p>
-                    
-                </div>
-            {% endfor %}
-        </div>
+        {% for teacher in teachers %}
+            <div class="teachers">
+                <h3>Преподаватели</h3>
+                    <div class="teacher">
+                        <p><a href="{% url 'create-message' teacher.user.id %}">{{ teacher.user.first_name }} {{ teacher.user.last_name }}</a>  {% if teacher.story != 0 %}{{ teacher.story }} непрочитанных сообщений{% endif %}</p>
+                    </div>
+            </div>
+        {% endfor %}
     {% endif %}
     {% if groups %}
         <div class="groups">
@@ -36,6 +35,8 @@
                                 <p><a href="{% url 'create-message' student.user.id %}">{{ student.user.first_name }} {{ student.user.last_name }}</a>  {% if student.story != 0 %}{{ student.story }} непрочитанных сообщений{% endif %}</p>
                                 
                             </div>
+                        {% empty %}
+                            <p>В данной группе нет студентов</p>
                         {% endfor %}
                     </div>
                 </div>
@@ -43,15 +44,15 @@
         </div>
     {% endif %}
     {% if allies %}
-        <div class="allies">
-            <h3>Одногруппники</h3>
-            {% for student in allies %}
-                <div class="student">
-                    <p><a href="{% url 'create-message' student.user.id %}">{{ student.user.first_name }} {{ student.user.last_name }}</a>  {% if student.story != 0 %}{{ student.story }} непрочитанных сообщений{% endif %}</p>
-                    
-                </div>
-            {% endfor %}
-        </div>
+        {% for student in allies %}
+            <div class="allies">
+                <h3>Одногруппники</h3>
+                    <div class="student">
+                        <p><a href="{% url 'create-message' student.user.id %}">{{ student.user.first_name }} {{ student.user.last_name }}</a>  {% if student.story != 0 %}{{ student.story }} непрочитанных сообщений{% endif %}</p>
+                        
+                    </div>
+            </div>
+        {% endfor %}
     {% endif %}
 </div>
 

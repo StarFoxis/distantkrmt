@@ -8,5 +8,7 @@
 {% if perms.tasks.add_task %}
     <a href="{% url 'create-task' %}">Создать задание</a>
     <a href="{% url 'list-task' %}">Список ваших заданий</a>
+{% else %}
+    <p>Вам аккаунт не подтвержден</p>
 {% endif %}
 {% endblock content %}
