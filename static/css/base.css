@@ -315,4 +315,8 @@ menu nav #btn-internal:checked + label::after {
 		border-top: 1px solid;
 		background: rgb(136, 135, 135);
 	}
+
+	.people {
+		display: flex;
+	}
 }

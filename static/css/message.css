@@ -50,10 +50,6 @@ input[type='submit'] {
     white-space: pre-wrap;
 }
 
-.people {
-    display: flex;
-}
-
 .teachers, .groups, .allies {
     margin: 20px;
 }
