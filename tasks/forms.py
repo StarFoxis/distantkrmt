@@ -25,8 +25,11 @@ class EditTaskForm(forms.ModelForm):
         date_open = self.cleaned_data['date_opening']
         date_end = self.cleaned_data['date_end']
 
-        if (not active and date_open and date_open >= date_end):
+        if (date_open and date_open >= date_end):
             raise forms.ValidationError('Дата открытия не может быть меньше или равна даты закрытия')
+
+        if (not active and not date_open):
+            raise forms.ValidationError('Дата открытия не указана')
 
         return date_open
 
@@ -53,8 +56,11 @@ class TaskForm(forms.ModelForm):
         date_open = self.cleaned_data['date_opening']
         date_end = self.cleaned_data['date_end']
 
-        if (not active and date_open and date_open >= date_end):
+        if (date_open and date_open >= date_end):
             raise forms.ValidationError('Дата открытия не может быть меньше или равна даты закрытия')
+
+        if (not active and not date_open):
+            raise forms.ValidationError('Дата открытия не указана') 
 
         return date_open
 
