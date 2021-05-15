@@ -10,17 +10,18 @@
 {% block content %}
 <h1>Сообщения</h1>
 <div class="people">
-    {% if teachers %}
-        {% for teacher in teachers %}
-            <div class="teachers">
-                <h3>Преподаватели</h3>
-                    <div class="teacher">
-                        <p><a href="{% url 'create-message' teacher.user.id %}">{{ teacher.user.first_name }} {{ teacher.user.last_name }}</a>  {% if teacher.story != 0 %}{{ teacher.story }} непрочитанных сообщений{% endif %}</p>
-                    </div>
-            </div>
-        {% endfor %}
+    {% if teachers|length != 0 %}
+        <div class="teachers">
+            <h3>Преподаватели</h3>
+            {% for teacher in teachers %}
+                <div class="teacher">
+                    <p><a href="{% url 'create-message' teacher.user.id %}">{{ teacher.user.first_name }} {{ teacher.user.last_name }}</a>  {% if teacher.story != 0 %}{{ teacher.story }} непрочитанных сообщений{% endif %}</p>
+                    
+                </div>
+            {% endfor %}
+        </div>
     {% endif %}
-    {% if groups %}
+    {% if groups|length != 0 %}
         <div class="groups">
             <h3>Студенты</h3>
             {% for name, students in groups.items %}
@@ -43,16 +44,16 @@
             {% endfor %}
         </div>
     {% endif %}
-    {% if allies %}
-        {% for student in allies %}
-            <div class="allies">
-                <h3>Одногруппники</h3>
-                    <div class="student">
-                        <p><a href="{% url 'create-message' student.user.id %}">{{ student.user.first_name }} {{ student.user.last_name }}</a>  {% if student.story != 0 %}{{ student.story }} непрочитанных сообщений{% endif %}</p>
-                        
-                    </div>
-            </div>
-        {% endfor %}
+    {% if allies|length != 0 %}
+        <div class="allies">
+            <h3>Одногруппники</h3>
+            {% for student in allies %}
+                <div class="student">
+                    <p><a href="{% url 'create-message' student.user.id %}">{{ student.user.first_name }} {{ student.user.last_name }}</a>  {% if student.story != 0 %}{{ student.story }} непрочитанных сообщений{% endif %}</p>
+                    
+                </div>
+            {% endfor %}
+        </div>
     {% endif %}
 </div>
 
