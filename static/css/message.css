@@ -48,6 +48,7 @@ input[type='submit'] {
 .message-text {
     display: block;
     white-space: pre-wrap;
+    overflow: overlay;
 }
 
 .teachers, .groups, .allies {
