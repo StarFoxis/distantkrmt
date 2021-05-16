@@ -3,19 +3,6 @@ from django import forms
 from .models import Task, Answer
 
 class EditTaskForm(forms.ModelForm):
-    date_opening = forms.DateTimeField(
-        label='Дата открытия',
-        input_formats=['%m/%d/%Y'],
-        widget=forms.TextInput(attrs={'readonly':'readonly'}),
-        required=False
-    )
-    date_end = forms.DateTimeField(
-        initial=format(datetime.date.today(),'%m/%d/%Y'),
-        label='Дата закрытия',
-        input_formats=['%m/%d/%Y'], 
-        widget=forms.TextInput(attrs={'readonly':'readonly'})
-    )
-
     class Meta:
         model = Task
         fields = ('name', 'task', 'date_end', 'active', 'date_opening')
@@ -34,19 +21,6 @@ class EditTaskForm(forms.ModelForm):
         return date_open
 
 class TaskForm(forms.ModelForm):
-    date_opening = forms.DateTimeField(
-        label='Дата открытия',
-        input_formats=['%m/%d/%Y'],
-        widget=forms.TextInput(attrs={'readonly':'readonly'}),
-        required=False
-    )
-    date_end = forms.DateTimeField(
-        initial=format(datetime.date.today(),'%m/%d/%Y'),
-        label='Дата закрытия',
-        input_formats=['%m/%d/%Y'], 
-        widget=forms.TextInput(attrs={'readonly':'readonly'})
-    )
-
     def __init__(self, *argv, **kwargs):
         super().__init__(*argv, **kwargs)
         self.fields['subject'].widget.attrs['disabled'] = 'disabled'
