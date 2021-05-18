@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
-import django_heroku
+# import django_heroku
 
 from pathlib import Path
 
@@ -141,4 +141,4 @@ LOGOUT_REDIRECT_URL = 'home'
 
 WSGI_APPLICATION = 'distant.wsgi.application'
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
