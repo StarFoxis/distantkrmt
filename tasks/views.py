@@ -44,7 +44,8 @@ class ListTaskView(PermissionRequiredMixin, ListView):
     permission_required = 'tasks.change_task'
 
     def get_queryset(self):
-        query = super().get_queryset()
+        query = super().get_queryset().filter(teacher=self.request.user.teacher)
+        # print(*[teacher.teacher for teacher in query], sep='\n')
         for obj in query:
             obj.answer_count = len(obj.taskstudent_set.exclude(answer=None))
         return query
