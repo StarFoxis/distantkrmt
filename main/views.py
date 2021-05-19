@@ -16,19 +16,20 @@ class HomePage(TemplateView):
         user = self.request.user
         if user.is_authenticated:
             if hasattr(user, 'student'):
+                tasks = TaskStudent.objects.filter(student=user.student).filter(answer=None)
                 _open = []
                 _close = []
                 _end = []
-                tasks_student = TaskStudent.objects.filter(student=user.student).filter(answer=None)
-                for task_student in tasks_student:
-                    if task_student.task.seenTask():
-                        if task_student.task.closeTask():
-                            _end.append(task_student)
+
+                for task in tasks:
+                    if task.task.closeTask():
+                        _end.append(task)
+                    else:
+                        if task.task.openTask():
+                            _open.append(task)
                         else:
-                            if task_student.task.openTask():
-                                _open.append(task_student)
-                            else:
-                                _close.append(task_student)
+                            _close.append(task)
+
                 context['open_task'] = _open
                 context['close_task'] = _close
                 context['end_task'] = _end

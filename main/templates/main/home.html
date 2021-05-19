@@ -9,9 +9,6 @@
 {% endblock static %}
 
 {% block content %}
-
-
-
 {% if user.is_authenticated %}
     {% if user.student %} 
         {% if open_task or close_task %}
